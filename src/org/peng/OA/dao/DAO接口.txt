@@ -1,0 +1,2 @@
+定义DAO接口 使用动态SQL提供的xxxDynaSqlProvider
+通过DAO接口完成数据库的操作，比JDBC的持久化访问高效率

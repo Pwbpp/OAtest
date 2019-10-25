@@ -1,0 +1,78 @@
+create database hrm_db;
+
+use hrm_db;
+
+create table dept_inf (
+ ID int(11) not null auto_increment,
+ NAME varchar(50) not null,
+ REMARK varchar(300) default null,
+ primary key (ID)
+)engine = innodb auto_increment=10 default charset=utf8;
+
+create table job_inf(
+ ID int(11) not null auto_increment,
+ NAME varchar(50) not null,
+ REMARK varchar(300) default null,
+ primary key (ID)
+)engine = innodb auto_increment=10 default charset=utf8;
+
+create table user_inf(
+ ID int(11) not null auto_increment,
+ loginname varchar(20) not null,
+ PASSWORD varchar(16) not null,
+ USERSTATUS int(11) not null default '1',
+ username varchar(20) default null,
+ primary key (ID)
+)engine = innodb auto_increment=2 default charset=utf8;
+
+create table employee_inf(
+ID int(11) not null auto_increment,
+DEPT_ID int(11) not null,
+JOB_ID int(11) not null,
+NAME varchar(20) not null,
+CARD_ID varchar(18) not null,
+ADDRESS varchar(50) not null,
+POST_CODE varchar(50) default null,
+TEL varchar(16) default null,
+PHONE varchar(11) not null,
+QQ varchar(12) default null,
+EMAIL varchar(50) not null,
+SEX int(10) not null default '1',
+PARTY varchar(10) default null, 
+BIRTHDAY datetime default null,
+RACE varchar(100) default null,
+EDUCATION varchar(10) default null,
+SPECIALTY varchar(20) default null,
+HOBBY varchar(100) default null,
+REMARK varchar(500) default null,
+CREATE_DATE timestamp not null default current_timestamp,
+primary key (ID),
+key FK_EMP_DEPT (DEPT_ID),
+key FK_EMP_JOB (JOB_ID),
+constraint FK_EMP_DEPT foreign key (DEPT_ID) references dept_inf(ID),
+constraint FK_EMP_JOB foreign key (JOB_ID) references job_inf(ID)
+)engine = innodb auto_increment=21 default charset=utf8;
+
+create table notice_inf(
+ ID int(11) not null auto_increment,
+ TITLE varchar(50) not null,
+ CONTENT text not null,
+ CREAT_DATE timestamp not null default current_timestamp,
+ USER_ID int(11) default null,
+ primary key (ID),
+ key FK_NOTICE_USER (USER_ID),
+ constraint FK_NOTICE_USER foreign key (USER_ID) references user_inf(ID)
+)engine = innodb auto_increment=19 default charset=utf8;
+
+create table document_inf(
+ ID int(11) not null auto_increment,
+ TITLE varchar(50) not null,
+ filename varchar(300) not null,
+ REMARK varchar(300) default null,
+CREATE_DATE timestamp not null default current_timestamp,
+ USER_ID int(11) default null,
+ primary key (ID),
+ key FK_DOCUMENT_USER (USER_ID),
+ constraint FK_DOCUMENT_USER foreign key (USER_ID) references user_inf(ID)
+)engine = innodb auto_increment=7 default charset=utf8;
+
